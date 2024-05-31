@@ -1,0 +1,61 @@
+--- a/tool_pngpal2raw.mk
++++ b/tool_pngpal2raw.mk
+@@ -35,58 +35,6 @@
+ clean-pngpal2raw:
+ 	$(MAKE) -C tools/pngpal2raw clean
+ 
+-else ifneq (,$(findstring .tar.gz,$(PNGTORAW_PACKAGE)))
+-
+-# If we have tar gzip prebuild, download and extract it
+-$(PNGTORAW): tools/pngpal2raw/pkg/$(PNGTORAW_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	tar -zxmUf "../../../$<"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/pngpal2raw/pkg/$(PNGTORAW_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(PNGTORAW_DOWNLOAD)"
+-	tar -tzf "$@.dl" >/dev/null
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-pngpal2raw:
+-	-$(RM) tools/pngpal2raw/bin/*
+-
+-deep-clean-pngpal2raw:
+-	-$(RM) tools/pngpal2raw/pkg/$(PNGTORAW_PACKAGE)
+-
+-else ifneq (,$(findstring .zip,$(PNGTORAW_PACKAGE)))
+-
+-# If we have zip prebuild, download and extract it
+-$(PNGTORAW): tools/pngpal2raw/pkg/$(PNGTORAW_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	unzip -DD -qo "../../../$<"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/pngpal2raw/pkg/$(PNGTORAW_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(PNGTORAW_DOWNLOAD)"
+-	unzip -qt "$@.dl"
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-pngpal2raw:
+-	-$(RM) tools/pngpal2raw/bin/*
+-
+-deep-clean-pngpal2raw:
+-	-$(RM) tools/pngpal2raw/pkg/$(PNGTORAW_PACKAGE)
+-
+ else
+ 
+ $(error Cannot find pngpal2raw tool source nor prebuild. Get package or source manually.)

@@ -1,0 +1,5 @@
+It looks like some files are missing from either my copy of dungeon keeper or missing from keeperfx.
+
+I compiled as much as I could but couldn't get it to run.
+
+https://github.com/dkfans/keeperfx/issues/3270

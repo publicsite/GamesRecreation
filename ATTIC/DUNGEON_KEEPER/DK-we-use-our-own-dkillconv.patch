@@ -1,0 +1,61 @@
+--- a/tool_dkillconv.mk
++++ b/tool_dkillconv.mk
+@@ -35,58 +35,6 @@
+ clean-dkillconv:
+ 	$(MAKE) -C tools/dkillconv clean
+ 
+-else ifneq (,$(findstring .tar.gz,$(DKILLCONV_PACKAGE)))
+-
+-# If we have tar gzip prebuild, download and extract it
+-$(DKILLTOLVL): tools/dkillconv/pkg/$(DKILLCONV_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	tar -zxmUf "../../../$<"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/dkillconv/pkg/$(DKILLCONV_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(DKILLCONV_DOWNLOAD)"
+-	tar -tzf "$@.dl" >/dev/null
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-dkillconv:
+-	-$(RM) tools/dkillconv/bin/*
+-
+-deep-clean-dkillconv:
+-	-$(RM) tools/dkillconv/pkg/$(DKILLCONV_PACKAGE)
+-
+-else ifneq (,$(findstring .zip,$(DKILLCONV_PACKAGE)))
+-
+-# If we have zip prebuild, download and extract it
+-$(DKILLTOLVL): tools/dkillconv/pkg/$(DKILLCONV_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	unzip -DD -qo "../../../$<"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/dkillconv/pkg/$(DKILLCONV_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(DKILLCONV_DOWNLOAD)"
+-	unzip -qt "$@.dl"
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-dkillconv:
+-	-$(RM) tools/dkillconv/bin/*
+-
+-deep-clean-dkillconv:
+-	-$(RM) tools/dkillconv/pkg/$(DKILLCONV_PACKAGE)
+-
+ else
+ 
+ $(error Cannot find dkillconv tool source nor prebuild. Get package or source manually.)

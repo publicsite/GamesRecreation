@@ -1,0 +1,3 @@
+I don't have the data1.cab file required to extract assets from the cdrom
+
+I could try installing with wine

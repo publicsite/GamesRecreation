@@ -1,0 +1,75 @@
+--- a/tool_po2ngdat.mk
++++ b/tool_po2ngdat.mk
+@@ -35,72 +35,6 @@
+ clean-po2ngdat:
+ 	$(MAKE) -C tools/po2ngdat clean
+ 
+-else ifneq (,$(findstring .tar.gz,$(POTONGDAT_PACKAGE)))
+-
+-# If we have tar gzip prebuild, download and extract it
+-$(POTONGDAT): tools/po2ngdat/pkg/$(POTONGDAT_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	tar -zxmUf "../../../$<" --exclude="*char_encoding_*.txt"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/po2ngdat/res:
+-	$(MKDIR) $@
+-
+-tools/po2ngdat/res/char_encoding_tbl_%.txt: tools/po2ngdat/pkg/$(POTONGDAT_PACKAGE) | tools/po2ngdat/res
+-	tar xzmf $< -C $(@D) ./$(@F)
+-
+-tools/po2ngdat/pkg/$(POTONGDAT_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(POTONGDAT_DOWNLOAD)"
+-	tar -tzf "$@.dl" >/dev/null
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-po2ngdat:
+-	-$(RM) tools/po2ngdat/bin/*
+-
+-deep-clean-po2ngdat:
+-	-$(RM) tools/po2ngdat/pkg/$(POTONGDAT_PACKAGE)
+-
+-else ifneq (,$(findstring .zip,$(POTONGDAT_PACKAGE)))
+-
+-# If we have zip prebuild, download and extract it
+-$(POTONGDAT): tools/po2ngdat/pkg/$(POTONGDAT_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	unzip -DD -qo "../../../$<" -x "char_encoding_*.txt"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/po2ngdat/res/%.txt: tools/po2ngdat/pkg/$(POTONGDAT_PACKAGE)
+-	-$(ECHO) 'Extracting encoding table: $@'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	unzip -DD -qo "../../../$<" "char_encoding_*.txt"
+-	-$(ECHO) 'Finished extracting: $@'
+-	-$(ECHO) ' '
+-
+-tools/po2ngdat/pkg/$(POTONGDAT_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(POTONGDAT_DOWNLOAD)"
+-	unzip -qt "$@.dl"
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-po2ngdat:
+-	-$(RM) tools/po2ngdat/bin/*
+-
+-deep-clean-po2ngdat:
+-	-$(RM) tools/po2ngdat/pkg/$(POTONGDAT_PACKAGE)
+-
+ else
+ 
+ $(error Cannot find po2ngdat tool source nor prebuild. Get package or source manually.)

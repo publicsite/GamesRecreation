@@ -1,0 +1,61 @@
+--- a/tool_png2ico.mk
++++ b/tool_png2ico.mk
+@@ -35,58 +35,6 @@
+ clean-png2ico:
+ 	$(MAKE) -C tools/png2ico clean
+ 
+-else ifneq (,$(findstring .tar.gz,$(PNGTOICO_PACKAGE)))
+-
+-# If we have tar gzip prebuild, download and extract it
+-$(PNGTOICO): tools/png2ico/$(PNGTOICO_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	tar -zxmUf "../../$<"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/png2ico/$(PNGTOICO_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(PNGTOICO_DOWNLOAD)"
+-	tar -tzf "$@.dl" >/dev/null
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-png2ico:
+-	-$(RM) $(PNGTOICO) tools/png2ico/README tools/png2ico/VERSION tools/png2ico/LICENSE tools/png2ico/doc/png2ico.txt
+-
+-deep-clean-png2ico:
+-	-$(RM) tools/png2ico/$(PNGTOICO_PACKAGE)
+-
+-else ifneq (,$(findstring .zip,$(PNGTOICO_PACKAGE)))
+-
+-# If we have zip prebuild, download and extract it
+-$(PNGTOICO): tools/png2ico/$(PNGTOICO_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	unzip -DD -qo "../../$<"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/png2ico/$(PNGTOICO_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(PNGTOICO_DOWNLOAD)"
+-	unzip -qt "$@.dl"
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-png2ico:
+-	-$(RM) $(PNGTOICO) tools/png2ico/README tools/png2ico/VERSION tools/png2ico/LICENSE tools/png2ico/doc/png2ico.txt
+-
+-deep-clean-png2ico:
+-	-$(RM) tools/png2ico/$(PNGTOICO_PACKAGE)
+-
+ else
+ 
+ $(error Cannot find png2ico tool source nor prebuild. Get package or source manually.)

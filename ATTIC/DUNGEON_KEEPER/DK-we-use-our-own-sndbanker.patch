@@ -1,0 +1,61 @@
+--- a/tool_sndbanker.mk
++++ b/tool_sndbanker.mk
+@@ -35,58 +35,6 @@
+ clean-sndbanker:
+ 	$(MAKE) -C tools/sndbanker clean
+ 
+-else ifneq (,$(findstring .tar.gz,$(SNDBANKER_PACKAGE)))
+-
+-# If we have tar gzip prebuild, download and extract it
+-$(WAVTODAT): tools/sndbanker/pkg/$(SNDBANKER_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	tar -zxmUf "../../../$<"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/sndbanker/pkg/$(SNDBANKER_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(SNDBANKER_DOWNLOAD)"
+-	tar -tzf "$@.dl" >/dev/null
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-sndbanker:
+-	-$(RM) tools/sndbanker/bin/*
+-
+-deep-clean-sndbanker:
+-	-$(RM) tools/sndbanker/pkg/$(SNDBANKER_PACKAGE)
+-
+-else ifneq (,$(findstring .zip,$(SNDBANKER_PACKAGE)))
+-
+-# If we have zip prebuild, download and extract it
+-$(WAVTODAT): tools/sndbanker/pkg/$(SNDBANKER_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	unzip -DD -qo "../../../$<"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/sndbanker/pkg/$(SNDBANKER_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(SNDBANKER_DOWNLOAD)"
+-	unzip -qt "$@.dl"
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-sndbanker:
+-	-$(RM) tools/sndbanker/bin/*
+-
+-deep-clean-sndbanker:
+-	-$(RM) tools/sndbanker/pkg/$(SNDBANKER_PACKAGE)
+-
+ else
+ 
+ $(error Cannot find sndbanker tool source nor prebuild. Get package or source manually.)

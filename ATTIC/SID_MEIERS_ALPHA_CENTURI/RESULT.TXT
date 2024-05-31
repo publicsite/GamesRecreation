@@ -1,0 +1,3 @@
+This requires Alien Crossfire expansion pack (containing terranx.exe). It does not work without it.
+
+I don't have the expansion pack.

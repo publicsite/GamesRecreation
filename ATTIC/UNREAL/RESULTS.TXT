@@ -1,0 +1,9 @@
+Surreal engine does not recognise my unreal directory
+
+I asked at https://github.com/dpjudas/SurrealEngine/issues/110
+
+The SETUP.EXE file crashes using wine. I also tried setting windows 95 compatibility with winecfg and setting cwd using firejail.
+
+Installer didn't go.
+
+I tried extracting with 7z and unshield. It didn't go.

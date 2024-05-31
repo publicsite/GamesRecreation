@@ -1,0 +1,61 @@
+--- a/tool_rnctools.mk
++++ b/tool_rnctools.mk
+@@ -35,58 +35,6 @@
+ clean-rnctools:
+ 	$(MAKE) -C tools/rnctools clean
+ 
+-else ifneq (,$(findstring .tar.gz,$(RNCTOOLS_PACKAGE)))
+-
+-# If we have tar gzip prebuild, download and extract it
+-$(RNC) $(DERNC): tools/rnctools/pkg/$(RNCTOOLS_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	tar -zxmUf "../../../$<"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/rnctools/pkg/$(RNCTOOLS_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(RNCTOOLS_DOWNLOAD)"
+-	tar -tzf "$@.dl" >/dev/null
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-rnctools:
+-	-$(RM) tools/rnctools/bin/*
+-
+-deep-clean-rnctools:
+-	-$(RM) tools/rnctools/pkg/$(RNCTOOLS_PACKAGE)
+-
+-else ifneq (,$(findstring .zip,$(RNCTOOLS_PACKAGE)))
+-
+-# If we have zip prebuild, download and extract it
+-$(RNC) $(DERNC): tools/rnctools/pkg/$(RNCTOOLS_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	unzip -DD -qo "../../../$<"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/rnctools/pkg/$(RNCTOOLS_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(RNCTOOLS_DOWNLOAD)"
+-	unzip -qt "$@.dl"
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-rnctools:
+-	-$(RM) tools/rnctools/bin/*
+-
+-deep-clean-rnctools:
+-	-$(RM) tools/rnctools/pkg/$(RNCTOOLS_PACKAGE)
+-
+ else
+ 
+ $(error Cannot find rnctools tool source nor prebuild. Get package or source manually.)

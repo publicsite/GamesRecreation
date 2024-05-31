@@ -1,0 +1,1 @@
+Running openlara on linux produces a segmentation fault

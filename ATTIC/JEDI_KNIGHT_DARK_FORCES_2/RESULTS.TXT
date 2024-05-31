@@ -1,0 +1,10 @@
+OpenJKDF2 does not compile. This is because it expects it's dependency, SDL_mixer to have it's dependency opusfile to have a CMakeLists.txt, which it doesn't.
+
+I updated SDL_Mixer to see if it would fix the problem and it didn't.
+
+See buildlog.txt ... the error is:
+
+"
+CMake Error at cmake/PrivateSdlFunctions.cmake:217 (message):
+  No cmake project for opusfile found in external/opusfile.
+"

@@ -1,0 +1,77 @@
+--- a/tool_png2bestpal.mk
++++ b/tool_png2bestpal.mk
+@@ -35,74 +35,6 @@
+ clean-png2bestpal:
+ 	$(MAKE) -C tools/png2bestpal clean
+ 
+-else ifneq (,$(findstring .tar.gz,$(PNGTOBSPAL_PACKAGE)))
+-
+-# If we have tar gzip prebuild, download and extract it
+-$(PNGTOBSPAL): tools/png2bestpal/pkg/$(PNGTOBSPAL_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	tar -zxmUf "../../../$<" --exclude="*color_tbl_*.txt"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/png2bestpal/res/%.txt: tools/png2bestpal/pkg/$(PNGTOBSPAL_PACKAGE)
+-	-$(ECHO) 'Extracting encoding table: $@'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	tar -zxmUf "../../../$<" --wildcards "*color_tbl_*.txt"
+-	-$(ECHO) 'Finished extracting: $@'
+-	-$(ECHO) ' '
+-
+-tools/png2bestpal/pkg/$(PNGTOBSPAL_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(PNGTOBSPAL_DOWNLOAD)"
+-	tar -tzf "$@.dl" >/dev/null
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-png2bestpal:
+-	-$(RM) tools/png2bestpal/bin/*
+-
+-deep-clean-png2bestpal:
+-	-$(RM) tools/png2bestpal/pkg/$(PNGTOBSPAL_PACKAGE)
+-
+-else ifneq (,$(findstring .zip,$(PNGTOBSPAL_PACKAGE)))
+-
+-# If we have zip prebuild, download and extract it
+-$(PNGTOBSPAL): tools/png2bestpal/pkg/$(PNGTOBSPAL_PACKAGE)
+-	-$(ECHO) 'Extracting package: $<'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	unzip -DD -qo "../../../$<" -x "color_tbl_*.txt"
+-	-$(ECHO) 'Finished extracting: $<'
+-	-$(ECHO) ' '
+-
+-tools/png2bestpal/res/%.txt: tools/png2bestpal/pkg/$(PNGTOBSPAL_PACKAGE)
+-	-$(ECHO) 'Extracting encoding table: $@'
+-	$(MKDIR) "$(@D)"
+-	cd "$(@D)"; \
+-	unzip -DD -qo "../../../$<" "color_tbl_*.txt"
+-	-$(ECHO) 'Finished extracting: $@'
+-	-$(ECHO) ' '
+-
+-tools/png2bestpal/pkg/$(PNGTOBSPAL_PACKAGE):
+-	-$(ECHO) 'Downloading package: $@'
+-	$(MKDIR) "$(@D)"
+-	curl -L -o "$@.dl" "$(PNGTOBSPAL_DOWNLOAD)"
+-	unzip -qt "$@.dl"
+-	$(MV) "$@.dl" "$@"
+-	-$(ECHO) 'Finished downloading: $@'
+-	-$(ECHO) ' '
+-
+-clean-png2bestpal:
+-	-$(RM) tools/png2bestpal/bin/*
+-
+-deep-clean-png2bestpal:
+-	-$(RM) tools/png2bestpal/pkg/$(PNGTOBSPAL_PACKAGE)
+-
+ else
+ 
+ $(error Cannot find png2bestpal tool source nor prebuild. Get package or source manually.)
