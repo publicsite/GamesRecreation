@@ -1,14 +1,14 @@
-##About
+## About
 
 In this repository, are build scripts for some game recreations. Proprietary assets are required to run them (*Unlike* the other repository I made with build scripts for games with free assets which can be found here https://github.com/publicsite/GamesRenovation ).
 
-##Useage
+## Useage
 
 clone the repository and cd to a directory. There are some numbered scripts. Start from number 1 and work your way up through the scripts in order to get build the recreations and run them.
 
 Some of the unsuccessful attempts can be found in the ATTIC directory.
 
-##Screenshots
+## Screenshots
 
 ![Alt text](.screenshots/themehospital.png?raw=true "CorsixTH - Theme Hospital")
 ![Alt text](.screenshots/hexen2.png?raw=true "Hammer of Thyrion - Hexen2")
@@ -18,7 +18,7 @@ Some of the unsuccessful attempts can be found in the ATTIC directory.
 ![Alt text](.screenshots/tombraider.png?raw=true "OpenTomb - TombRaider1")
 ![Alt text](.screenshots/tombraider2.png?raw=true "OpenTomb - TombRaider2")
 
-##Note
+## Note
 
 The software is ...
 
