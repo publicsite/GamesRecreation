@@ -14,7 +14,7 @@ Some of the unsuccessful attempts can be found in the ATTIC directory.
 ![Alt text](.screenshots/hexen2.png?raw=true "Hammer of Thyrion - Hexen2")
 ![Alt text](.screenshots/gta1.png?raw=true "Carnage3D - GTA1")
 ![Alt text](.screenshots/doom.png?raw=true "ChocolateDoom - Doom")
-![Alt text](.screenshots/doom.png?raw=true "Dethrace - Carmageddon")
+![Alt text](.screenshots/carma.png?raw=true "Dethrace - Carmageddon")
 ![Alt text](.screenshots/tombraider.png?raw=true "OpenTomb - TombRaider1")
 ![Alt text](.screenshots/tombraider2.png?raw=true "OpenTomb - TombRaider2")
 
