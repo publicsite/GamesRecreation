@@ -1,5 +1,8 @@
 #!/bin/sh
 
+OLD_UMASK="$(umask)"
+umask 0022
+
 cd "$(dirname "$0")"
 
 find . -maxdepth 1 -type f -name "*.tgz" -exec tar -xf "{}" \;
@@ -26,3 +29,5 @@ mkdir -p ${HOME}/.hexen2/data1
 cp -a ../../../gamecode-1.29b/res/h2/* ${HOME}/.hexen2/data1/
 
 ../../../hexen2source-1.5.9/h2patch/h2patch
+
+umask "${OLD_UMASK}"
