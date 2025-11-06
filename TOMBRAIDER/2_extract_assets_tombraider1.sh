@@ -1,4 +1,8 @@
 #!/bin/sh
+
+OLD_UMASK="$(umask)"
+umask 0022
+
 cd "$(dirname "$0")"
 
 mkdir mountpoint
@@ -24,3 +28,5 @@ cp -a mountpoint TombRaider1
 sudo umount mountpoint
 
 rmdir mountpoint
+
+umask "${OLD_UMASK}"
