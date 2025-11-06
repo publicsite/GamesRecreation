@@ -1,5 +1,8 @@
 #!/bin/sh
 
+OLD_UMASK="$(umask)"
+umask 0022
+
 cd "$(dirname "$0")"
 
 tar -xf master.tar.gz
@@ -12,3 +15,5 @@ echo '#include <unistd.h>' > src/core/system.h
 cat src/core/system.h.old >> src/core/system.h
 
 cmake . && make
+
+umask "${OLD_UMASK}"
