@@ -1,5 +1,8 @@
 #!/bin/sh
 
+OLD_UMASK="$(umask)"
+umask 0022
+
 cd "$(dirname "$0")"
 
 mkdir mountpoint
@@ -31,3 +34,5 @@ chmod -R u+w Hexen2
 sudo umount mountpoint
 
 rmdir mountpoint
+
+umask "${OLD_UMASK}"
