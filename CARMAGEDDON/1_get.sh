@@ -1,5 +1,8 @@
 #!/bin/sh
 
+OLD_UMASK="$(umask)"
+umask 0022
+
 cd "$(dirname "$0")"
 
 #for these scripts
@@ -9,3 +12,5 @@ sudo apt-get install wget zenity
 sudo apt-get install libsdl2-dev
 
 wget "https://github.com/dethrace-labs/dethrace/archive/refs/heads/main.tar.gz"
+
+umask "${OLD_UMASK}"
