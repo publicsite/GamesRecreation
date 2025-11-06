@@ -1,4 +1,8 @@
 #!/bin/sh
+
+OLD_UMASK="$(umask)"
+umask 0022
+
 cd "$(dirname "$0")"
 
 #for these scripts
@@ -13,3 +17,5 @@ sudo apt-get install ffmpeg libavcodec-dev libavformat-dev libavresample-dev lib
 sudo apt-get install curl libcurl4-openssl-dev
 
 wget "https://github.com/CorsixTH/CorsixTH/archive/refs/heads/master.tar.gz"
+
+umask "${OLD_UMASK}"
