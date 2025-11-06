@@ -1,4 +1,8 @@
 #!/bin/sh
+
+OLD_UMASK="$(umask)"
+umask 0022
+
 cd "$(dirname "$0")"
 
 mkdir mountpoint
@@ -24,3 +28,5 @@ find mountpoint -maxdepth 1 -type f -name "*.wad" -exec cp -a {} . \;
 sudo umount mountpoint
 
 rmdir mountpoint
+
+umask "${OLD_UMASK}"
